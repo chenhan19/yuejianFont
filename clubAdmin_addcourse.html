@@ -1,0 +1,337 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>新增活动</title>
+<link href="lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+</head>
+<style type="text/css">
+  .file {
+        position: absolute;
+        top: 60px;
+        left: 18px;
+        display: inline-block;
+        background: ##87CEEB;
+        border: 1px solid #99D3F5;
+        border-radius: 4px;
+        overflow: hidden;
+        color: #1E88C7;
+        text-align: center;
+        text-decoration: none;
+        text-indent: 0;
+        line-height: 14px;
+        font-size: 10px;
+        width: 50px;
+        height: 14px;
+    }
+    .file input {
+        position: absolute;
+        font-size: 100px;
+        right: 0;
+        top: 0;
+        opacity: 0;
+    }
+    .file:hover {
+        background: #AADFFD;
+        border-color: #78C3F3;
+        color: #004974;
+        text-decoration: none;
+    }
+</style>
+<body>
+<div class="page-container">
+	<div class="form form-horizontal"  id="form-article-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>课程名称</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" onblur="isactTitle()" value="" placeholder="" id="classTheme" name="class_Theme">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>报名人数：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input style="width:70px;" type="text" onblur="isactNums()" class="input-text" value="" id="classNumber" name="class_Number">人
+			</div>
+		</div>
+        
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>课程开始时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="date"  class="input-text" onblur="isactSTime()" style="width:150px;" value="" placeholder="" id="classStartTime" name="class_StartTime">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>课程结束时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="date" class="input-text" onblur="isDate()" style="width:150px;" value="" placeholder="" id="classEndTime" name="class_EndTime">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>课程详情：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="textarea" class="input-text" onblur="isactContent()" value="" placeholder="" id="classContent" name="class_Content">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>课程价格：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input style="width:70px;" type="textarea" onblur="isactPrice()" class="input-text"  id="classPrice" name="class_Price">元
+            </div>
+        </div>
+        <!-- <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>活动图片：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <a href="javascript:;" class="file">选择图片<input type="file" style="width: 150px;" value=""  onchange="previewFile()" onblur="isactImage()" id="activityPic" name="image"></a>
+                    <img src="" style="width: 60px;height: 60px;border-radius: 50%;float: left;"  id="imgsl">
+                </div>
+            </div> -->
+		<!-- <div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>指定管理员：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+				<select name="" class="select">
+					<option value="0">管理员1</option>
+					<option value="1">管理员2</option>
+					<option value="11">管理员3</option>
+					<option value="12">管理员4</option>
+					<option value="13">管理员5</option>
+				</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>俱乐部简介：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea name="" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)"></textarea>
+				<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>俱乐部图片上传：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<div class="uploader-list-container"> 
+					<div class="queueList">
+						<div id="dndArea" class="placeholder">
+							<div id="filePicker-2"></div>
+							<p>或将照片拖到这里，单次最多可选300张</p>
+						</div>
+					</div>
+					<div class="statusBar" style="display:none;">
+						<div class="progress"> <span class="text">0%</span> <span class="percentage"></span> </div>
+						<div class="info"></div>
+						<div class="btns">
+							<div id="filePicker2"></div>
+							<div class="uploadBtn">开始上传</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> -->
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <input class="btn btn-primary radius" style="margin-top: 20px;" type="submit" id="sub" onclick="submitForm()"  href="javascript:;" value="确定">
+				<!-- <button onClick="activty_submit();" class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i>确定</button> -->
+				<!-- <button onClick="club_save();" class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿</button>
+				<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button> -->
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer /作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
+<script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script> 
+<script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script> 
+<script type="text/javascript" src="lib/webuploader/0.1.5/webuploader.min.js"></script> 
+<script type="text/javascript">
+
+
+/*上传图片 缩略图*/
+// function previewFile() {
+//   var preview = document.querySelector('#imgsl');
+//   var file    = document.querySelector('input[type=file]').files[0];
+//   var reader  = new FileReader();
+
+//   reader.onloadend = function () {
+//     preview.src = reader.result;
+//   }
+
+//   if (file) {
+//     reader.readAsDataURL(file);
+//   } else {
+//     preview.src = "";
+//   }
+// }
+
+    // $.ajax({
+    //        type: "GET",
+    //        url: "http://www.yuejian.com/admin/getClubLists",
+    //        dataType: "json",
+    //        success: function (response) {
+    //             var output = "";
+    //          if (response.code == 1) {
+    //            response.data.forEach(element => {
+    //                output += `<option value="${element.id}">${element.clubName}</option>`;
+              
+    //            });
+    //           $('#clubName').html(output);
+    //          }
+    //        }
+    //      });
+
+    function isactTitle(){
+        if ($('#classTheme').val() == '') {
+          layer.tips('课程主题不能为空！', '#classTheme');
+          return 0;
+        }else{
+          return 1;
+        }
+    }
+    function isactNums(){
+        if ($('#classNumber').val() == '') {
+          layer.tips('请填写课程人数！', '#classNumber');
+          return 0;
+        }else{
+          return 1;
+        }
+    }
+
+    function isactSTime(){
+        if ($('#classStartTime').val() == '') {
+          layer.tips('开始日期不能为空！', '#classStartTime');
+          return 0;
+        }else{
+          return 1;
+        }
+    }
+    function isactETime(){
+        if ($('#classEndTime').val() == '') {
+          layer.tips('结束日期不能为空！', '#classEndTime');
+          return 0;
+        }else{
+          return 1;
+        }
+    }
+    function isactContent(){
+        if ($('#classContent').val() == '') {
+          layer.tips('课程详情不能为空！', '#classContent');
+          return 0;
+        }else{
+          return 1;
+        }
+    }
+    function isactPrice(){
+        if ($('#classPrice').val() == '') {
+          layer.tips('请添加该课程价格！', '#classPrice');
+          return 0;
+        }else{
+          return 1;
+        }
+    }
+
+    function isDate(){
+    //         var startTmp=document.getElementById('activityStartTime').value.replace(/\:/g,"-").split("-");
+    //         var endTmp=document.getElementById('activityEndTime').value.replace(/\:/g,"-").split("-");
+    //         var sd=new Date(startTmp[0],startTmp[1],startTmp[2]);
+    //         var ed=new Date(endTmp[0],endTmp[1],endTmp[2]);
+    //         if(sd.getTime()>ed.getTime()){
+    //             return 0;
+    //         }else{
+    //             return 1;
+    // }
+
+
+      if ($('#classEndTime').val() == '') {
+                layer.tips('结束日期不能为空！', '#classEndTime');
+                return 0;
+              }else{
+                var starttime = $('#classStartTime').val();
+      var endtime = $('#classEndTime').val();
+      var start = new Date(starttime.replace("-", "/").replace("-", "/"));
+      var end = new Date(endtime.replace("-", "/").replace("-", "/"));
+      if(end<start){ 
+        layer.tips('开始时间不能大于结束时间！', '#classEndTime'); 
+        return 0;  
+              }else{
+                return 1;
+              }
+
+      }
+}
+
+
+    
+    var index = parent.layer.getFrameIndex(window.name); //获取当前窗体索引
+ function submitForm() {
+      // if(isactTitle()==1 && isactNums()==1 && isactSTime()==1 && isactETime()==1 && isactContent()==1 && isactPrice()==1 && isDate()==1){
+            var formData = new FormData();
+              formData.append('clubID', sessionStorage.getItem('clubID'));
+              formData.append('classTheme', $('#classTheme').val());
+              formData.append('classContent', $('#classContent').val());
+              formData.append('classStarttime', $('#classStartTime').val());
+              formData.append('classEndtime', $('#classEndTime').val());
+              formData.append('classNumber', $('#classNumber').val());
+              formData.append('classPrice', $('#classPrice').val());
+    //添加
+    $.ajax({
+                type: "POST",
+                url: "http://www.yuejian.com/admin/addClubCourse",
+                cache: false,
+                processData: false,
+                contentType: false, 
+                data: formData,
+                dataType: "json",
+                success: function (response) {
+
+                    if (response.code == 1) {
+                        layer.msg('活动添加成功！', { icon: 1, time: 1000 });
+                        setTimeout(function () {
+                            parent.layer.close(index); //再执行关闭
+                        }, 2000);
+                        function jumurl(){
+                    　　    window.location.href = 'clubCourse.html';
+                    　　}
+                    　　    setTimeout(jumurl,2000);
+                        // alert('活动添加成功!');
+                    } else if (response.code == 0) {
+                        layer.msg(response.msg, { icon: 1, time: 1000 });
+                        // alert('活动添加失败!');
+                    } else {
+                        parent.layer.close(index); //再执行关闭
+                    }
+                }
+            });
+        // } 
+      }
+
+
+       
+</script>
+
+</script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE HTML>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>活动详情</title>
+</head>
+<body>
+<!-- <div class="cl pd-20" style=" background-color:#5bacb6">
+	<img class="avatar size-XL l" src="static/h-ui/images/ucnter/avatar-default.jpg">
+	<dl style="margin-left:80px; color:#fff">
+		<dt>
+			<span class="f-18">张三</span>
+			<span class="pl-10 f-12">余额：40</span>
+		</dt>
+		<dd class="pt-10 f-12" style="margin-left:0">这家伙很懒，什么也没有留下</dd>
+	</dl>
+</div> -->
+<div class="page-container">
+      <div class="panel panel-default" style="margin-top: 20px">
+          <div class="panel-header"><span class="activityTitle"></span>的活动详情</div>
+          <div class="panel-body" id="courseDetail">
+			<table class="table">
+				<!-- <colgroup>
+                <col width="100">
+                <col width="100">
+                <col>
+              </colgroup> -->
+				<tbody id="coursedetail">
+					<!-- <tr>
+						<th class="text-r" width="80">课程名称：</th>
+						<td>男</td>
+					</tr>
+					<tr>
+						<th class="text-r">手机：</th>
+						<td>13000000000</td>
+					</tr>
+					<tr>
+						<th class="text-r">邮箱：</th>
+						<td>admin@mail.com</td>
+					</tr>
+					<tr>
+						<th class="text-r">地址：</th>
+						<td>北京市 海淀区</td>
+					</tr>
+					<tr>
+						<th class="text-r">注册时间：</th>
+						<td>2014.12.20</td>
+					</tr>
+					<tr>
+						<th class="text-r">积分：</th>
+						<td>330</td>
+					</tr> -->
+				</tbody>
+			</table>
+			<div>
+				<p style="font-size:18px;margin-left: 130px;color: #000;font-weight: bold;">俱乐部人员名单：</p>
+				<table class=" table-border table-bordered table-bg table-hover table-sort" style="width:1000px;margin:5px auto;text-align: center;border-color: #ccc;">
+					<thead id="fuusers">
+						<!-- <tr>
+							<th style="text-align: center;" width="200" height="40">姓名</th>
+							<th style="text-align: center;" width="200">性别</th>
+							<th style="text-align: center;" width="200">联系电话</th>					
+						</tr> -->
+					</thead>
+					<tbody id="users">
+						<!-- <tr>
+							<td width="100"><a href="javascript:;" onclick="user_info('${element.userName}','user-show.html?commentId=${element.id}','10001','360','400')"><i  class="avatar size-L radius"><img  alt="" src="http://www.yuejian.com/uploads/userInfo/${element.userPhoto}"></i></a><p>${element.userName}</p></td>
+							<td>真不错</td>
+							<td width="200">2019-5-8</td>
+						</tr> -->
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script> 
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script>
+	function RequestParameter() {
+      var url = window.location.search; //获取url中"?"符后的字串
+      var theRequest = new Object();
+      if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        var strs = str.split("&");
+        for (var i = 0; i < strs.length; i++) {
+          theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
+        }
+      }
+      console.log(theRequest);
+      return theRequest;
+    }
+
+
+
+	$.ajax({
+		   type: "GET",
+
+		   url: "http://www.yuejian.com/admin/getActivityDetail",
+		   dataType: "json",
+		   data: { activityId: RequestParameter()["activityId"] },
+		   success: function (response) {
+		   		var output = "";
+		   		var output1 = "";
+	   			var output2 = "";
+		   		$(".activityTitle").html(response.data[0].activityTitle);
+			 if (response.code == 1) {
+			   response.data.forEach(element => {
+				  if(response.data[0].userID){
+			  		output1 += `
+			  				<tr>
+								<td width="150"><a href="javascript:;" onclick="user_info('${element.userName}','user-show.html?userID=${element.userID}','10001','360','400')"><i style="margin-top:20px;" class="avatar size-L radius"><img alt="" src="http://www.yuejian.com/uploads/userInfo/${element.userPhoto}"></i><p>${element.userName}</p></a></td>
+								<td width="200">${element.userGender = 1 ? '男' : '女'}</td>
+								<td width="200">${element.userTel}</td>
+							</tr>
+							 
+			  			`;
+			  			}else{
+				   		output1 +=` <tr height="150">
+									  <td><span style="color:#ccc;font-size:18px;">暂无人报名该活动</span></td>
+					 			   </tr>
+				   		`;
+				   		output2 = "";
+				   	}
+			   });
+			   if(response.data[0].userID){
+						output2 += `<tr>
+										<th style="text-align: center;" width="200" height="40">姓名</th>
+										<th style="text-align: center;" width="200">性别</th>
+										<th style="text-align: center;" width="200">联系电话</th>					
+									</tr>`;
+					}
+			   output += `<tr>
+							<th class="text-r" style="font-size:18px;" width="180">活动主题：</th>
+							<td style="font-size:16px;color:rgba(0,0,0,0.7);">${response.data[0].activityTitle}</td>
+						</tr>
+						<tr>
+							<th class="text-r" style="font-size:18px;">活动内容：</th>
+							<td style="font-size:16px;color:rgba(0,0,0,0.7);">${response.data[0].activityContent}</td>
+						</tr>
+						<tr>
+							<th class="text-r" style="font-size:18px;">活动人数：</th>
+							<td style="font-size:16px;color:rgba(0,0,0,0.7);">${response.data[0].activityPeopleNums} 人</td>
+						</tr>
+						<tr>
+							<th class="text-r" style="font-size:18px;">活动时间：</th>
+							<td style="font-size:16px;color:rgba(0,0,0,0.7);">${response.data[0].activityStartTime}～${response.data[0].activityEndTime}</td>
+						</tr>
+						<tr>
+							<th class="text-r" style="font-size:18px;">活动价格：</th>
+							<td style="font-size:16px;color:rgba(0,0,0,0.7);">${response.data[0].activityPrice} 元</td>
+						</tr>
+						<tr>
+							<th class="text-r" style="font-size:18px;">活动地点：</th>
+							<td style="font-size:16px;color:rgba(0,0,0,0.7);">${response.data[0].activityPlace}</td>
+						</tr>
+						<tr>
+							<th class="text-r" style="font-size:18px;">所属俱乐部：</th>
+							<td style="font-size:16px;color:rgba(0,0,0,0.7);">${response.data[0].clubName}</td>
+						</tr>`;
+			  $('#coursedetail').html(output);
+			  $('#users').html(output1);
+			  $('#fuusers').html(output2);
+			 }
+		   }
+		 });
+
+	function user_info(title,url,id,w,h){
+		layer_show(title,url,w,h);
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="renderer" content="webkit|ie-comp|ie-stand">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+    content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <!--[if lt IE 9]>
+<script type="text/javascript" src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+<script type="text/javascript" src="http://libs.useso.com/js/respond.js/1.4.2/respond.min.js"></script>
+<script type="text/javascript" src="http://cdn.bootcss.com/css3pie/2.0beta1/PIE_IE678.js"></script>
+<![endif]-->
+  <link type="text/css" rel="stylesheet" href="./static/h-ui/css/H-ui.css" />
+  <link type="text/css" rel="stylesheet" href="./static/h-ui.admin/css/H-ui.admin.css" />
+  <link type="text/css" rel="stylesheet" href="./lib/layui/css/layui.css" />
+
+  <!--[if IE 7]>
+<link href="http://www.bootcss.com/p/font-awesome/assets/css/font-awesome-ie7.min.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+  <title>用户查看</title>
+</head>
+
+<body>
+  <div class="page-container">
+    <div class="panel panel-default">
+      <div class="panel-header"><span class="userName"></span>购买的活动</div>
+      <div class="panel-body">
+        <table class="layui-table" lay-size="sm">
+          <colgroup>
+            <col width="150">
+            <col width="200">
+            <col>
+          </colgroup>
+          <thead>
+            <tr>
+              <th style="text-align:center;">活动内容</th>
+              <th style="text-align:center;">活动开始时间</th>
+              <th style="text-align:center;">活动结束时间</th>
+              <th style="text-align:center;">活动地点</th>
+              <th style="text-align:center;">活动人数</th>
+              <th style="text-align:center;">活动价格</th>
+              <th style="text-align:center;">主办俱乐部</th>
+            </tr>
+          </thead>
+          <tbody id="user_activity">
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel panel-default" style="margin-top: 20px">
+      <div class="panel-header"><span class="userName"></span>购买的课程</div>
+      <div class="panel-body">
+        <table class="layui-table" lay-size="sm">
+          <colgroup>
+            <col width="150">
+            <col width="200">
+            <col>
+          </colgroup>
+          <thead>
+            <tr>
+              <th style="text-align:center;">课程主题</th>
+              <th style="text-align:center;">课程内容</th>
+              <th style="text-align:center;">课程开始时间</th>
+              <th style="text-align:center;">课程结束时间</th>
+              <th style="text-align:center;">课程人数</th>
+              <th style="text-align:center;">课程价格</th>
+              <th style="text-align:center;">主办俱乐部</th>
+              <th style="text-align:center;">课程备注</th>
+            </tr>
+          </thead>
+          <tbody id="user_course">
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel panel-default" style="margin-top: 20px">
+      <div class="panel-header"><span class="userName"></span>的评论</div>
+      <div class="panel-body">
+        <table class="layui-table" lay-size="sm">
+          <colgroup>
+            <col width="150">
+            <col width="200">
+            <col>
+          </colgroup>
+          <thead>
+            <tr>
+              <th style="text-align:center;">评论内容</th>
+              <th style="text-align:center;">晒图的发布者</th>
+              <th style="text-align:center;">晒图的主题</th>
+              <th style="text-align:center;">晒图的内容</th>
+              <th style="text-align:center;">评论的晒图图片信息</th>
+              <th style="text-align:center;">评论时间</th>
+            </tr>
+          </thead>
+          <tbody id="user_comment">
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel panel-default" style="margin-top: 20px">
+      <div class="panel-header"><span class="userName"></span>发表的晒图</div>
+      <div class="panel-body">
+        <table class="layui-table" lay-size="sm">
+          <colgroup>
+            <col width="150">
+            <col width="200">
+            <col>
+          </colgroup>
+          <thead>
+            <tr>
+              <th style="text-align:center;">晒图的主题</th>
+              <th style="text-align:center;">晒图的内容</th>
+              <th style="text-align:center;">评论的晒图图片信息</th>
+              <th style="text-align:center;">晒图时间</th>
+            </tr>
+          </thead>
+          <tbody id="user_showPic">
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <div class="panel panel-default" style="margin-top: 20px">
+      <div class="panel-header"><span class="userName"></span>参加的训练</div>
+      <div class="panel-body">
+        <table class="layui-table" lay-size="sm">
+          <colgroup>
+            <col width="150">
+            <col width="200">
+            <col>
+          </colgroup>
+          <thead>
+            <tr>
+              <th style="text-align:center;">训练的主题</th>
+              <th style="text-align:center;">训练的图片信息</th>
+              <th style="text-align:center;">训练的内容</th>
+              <th style="text-align:center;">训练开始时间</th>
+              <th style="text-align:center;">训练结束时间</th>
+              <th style="text-align:center;">训练的人数</th>
+              <th style="text-align:center;">训练的价格</th>
+              <th style="text-align:center;">训练的说明</th>
+              <th style="text-align:center;">主办俱乐部</th>
+            </tr>
+          </thead>
+          <tbody id="user_drill">
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel panel-default" style="margin-top: 20px">
+      <div class="panel-header"><span class="userName"></span>参加的俱乐部</div>
+      <div class="panel-body" id="userDetail">
+        <table class="layui-table" lay-size="sm">
+          <colgroup>
+            <col width="150">
+            <col width="200">
+            <col>
+          </colgroup>
+          <thead>
+            <tr>
+              <th style="text-align:center;">俱乐部名称</th>
+              <th style="text-align:center;">俱乐部图片</th>
+              <th style="text-align:center;">俱乐部地点</th>
+              <th style="text-align:center;">俱乐部简介</th>
+            </tr>
+          </thead>
+          <tbody id="user_club">
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+  <script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+  <script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+  <script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
+  <script>
+    function RequestParameter() {
+      var url = window.location.search; //获取url中"?"符后的字串
+      var theRequest = new Object();
+      if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        var strs = str.split("&");
+        for (var i = 0; i < strs.length; i++) {
+          theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
+        }
+      }
+      return theRequest;
+    }
+    $.ajax({
+      type: "GET",
+      url: "http://www.yuejian.com/admin/getUserDetail",
+      data: { userId: RequestParameter()["userId"] },
+      dataType: "json",
+      success: function (response) {
+        var activityOutput = "";
+        var courseOutput = "";
+        var commentOutput = "";
+        var showPicOutput = "";
+        var drillOutput = "";
+        var clubOutput = "";
+        var img = "";
+        console.log(response);
+        $(".userName").html(response.data[0].userName);
+        response.data.forEach(element => {
+          element.userBoughtActivityList.forEach(item => {
+            activityOutput += `
+            <tr>
+                <td style="text-align:center;">${item.activityContent}</td>
+                <td style="text-align:center;">${item.activityStartTime}</td>
+                <td style="text-align:center;">${item.activityEndTime}</td>
+                <td style="text-align:center;">${item.activityPlace}</td>
+                <td style="text-align:center;">${item.activityPeopleNums}人</td>
+                <td style="text-align:center;">${item.activityPrice}￥</td>
+                <td style="text-align:center;">${item.clubName}</td>
+                
+            </tr>
+            `;
+          });
+          element.userBoughtCourseList.forEach(item => {
+            courseOutput += `
+            <tr>
+                <td style="text-align:center;">${item.classTheme}</td>
+                <td style="text-align:center;">${item.classContent}</td>
+                <td style="text-align:center;">${item.classStarttime}</td>
+                <td style="text-align:center;">${item.classEndtime}</td>
+                <td style="text-align:center;">${item.classNumber}人</td>
+                <td style="text-align:center;">${item.classPrice}￥</td>
+                <td style="text-align:center;">${item.clubName}</td>
+                <td style="text-align:center;">${item.calssRemarks}</td>
+            </tr>
+            `;
+          });
+          element.userCommentList.forEach(item => {
+            commentOutput += `
+            <tr>
+                <td style="text-align:center;">${item.commentContent}</td>
+                <td style="text-align:center;">${item.userAccount}</td>
+                <td style="text-align:center;">${item.showPicTitle}</td>
+                <td style="text-align:center;">${item.showPicContent}</td>
+                <td style="text-align:center;" id='usercommentshowPiclist'>
+             
+                </td>
+                <td style="text-align:center;">${item.commentTime}</td>
+            </tr>
+            `;
+          });
+
+          element.userPublishShowPictureList.forEach(item=>{
+            showPicOutput+=`
+            <tr>
+                <td style="text-align:center;">${item.showPicTitle}</td>
+                <td style="text-align:center;">${item.showPicContent}</td>
+                <td style="text-align:center;">${item.userShowPicsList}</td>
+                <td style="text-align:center;">${item.showTime}</td>
+            </tr>
+            `
+
+          });
+          element.userJoinDrillList.forEach(item=>{
+            drillOutput+=`
+            <tr>
+                <td style="text-align:center;">${item.drillTitle}</td>
+                <td style="text-align:center;"><img src="http://www.yuejian.com/uploads/drillPics/${item.drillPic}" alt="${item.drillTitle}" style="width:50px;height:50px;"></td>
+                <td style="text-align:center;">${item.drillContent}</td>
+                <td style="text-align:center;">${item.drillStsrtTime}</td>
+                <td style="text-align:center;">${item.drillEndTime}</td>
+                <td style="text-align:center;">${item.drillPeopleNum}</td>
+                <td style="text-align:center;">${item.drillPrice}</td>
+                <td style="text-align:center;">${item.drillRequest}</td>
+                <td style="text-align:center;">${item.clubName}</td>
+            </tr>
+            `
+          });
+          element.userJoinClubList.forEach(item=>{
+            clubOutput+=`
+            <tr>
+                <td style="text-align:center;">${item.clubName}</td>
+                <td style="text-align:center;"><img src="http://www.yuejian.com/uploads/clubPics/${item.clubPic}" alt="${item.clubName}" style="width:50px;height:50px;"></td>
+                <td style="text-align:center;">${item.clubPlace}</td>
+                <td style="text-align:center;">${item.clubIntroduction}</td>
+            </tr>
+            `
+
+          });
+
+        });
+        $('#user_activity').html(activityOutput);
+        $('#user_course').html(courseOutput);
+        $('#user_comment').html(commentOutput);
+        $('#user_showPic').html(showPicOutput);
+        $('#user_drill').html(drillOutput);
+        $('#user_club').html(clubOutput);
+      }
+    });
+  </script>
+</body>
+
+</html>

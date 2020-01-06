@@ -1,0 +1,427 @@
+<!DOCTYPE HTML>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>活动编辑</title>
+</head>
+<style type="text/css">
+    .file {
+        position: absolute;
+        top: 60px;
+        left: 18px;
+        display: inline-block;
+        background: ##87CEEB;
+        border: 1px solid #99D3F5;
+        border-radius: 4px;
+        overflow: hidden;
+        color: #1E88C7;
+        text-align: center;
+        text-decoration: none;
+        text-indent: 0;
+        line-height: 14px;
+        font-size: 10px;
+        width: 50px;
+        height: 14px;
+    }
+    .file input {
+        position: absolute;
+        font-size: 100px;
+        right: 0;
+        top: 0;
+        opacity: 0;
+    }
+    .file:hover {
+        background: #AADFFD;
+        border-color: #78C3F3;
+        color: #004974;
+        text-decoration: none;
+    }
+</style>
+<body>
+<div class="page-container">
+    <div class="form form-horizontal"  id="form-article-add">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>活动主题：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" onblur="isactTitle()" value="" placeholder="" id="activityTitle" name="activity_Title">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>活动人数：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input style="width:70px;" type="text" onblur="isactNums()" class="input-text" value="" id="activityPeopleNums" name="activity_PeopleNums">人
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>活动地点：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" onblur="isactPlace()" value="" placeholder="" id="activityPlace" name="activity_Place">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>活动开始时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="date"  class="input-text" onblur="isactSTime()" style="width:150px;" value="" placeholder="" id="activityStartTime" name="activity_StartTime">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>活动结束时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="date" class="input-text" onblur="isDate()" style="width:150px;" value="" placeholder="" id="activityEndTime" name="activity_EndTime">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>活动内容：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="textarea" class="input-text" onblur="isactContent()" value="" placeholder="" id="activityContent" name="activity_Content">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>活动价格（人均）</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input style="width:70px;" type="textarea" onblur="isactPrice()" class="input-text"  id="activityPrice" name="activity_Price">元
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>所属俱乐部：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box">
+                <select name="" class="select"  id="clubName">
+                  
+                </select>
+                </span>
+            </div>
+        </div>
+        <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>活动图片：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <a href="javascript:;" class="file">选择图片<input type="file" style="width: 150px;" value=""  onchange="previewFile()" onblur="isactImage()" id="activityPic" name="image"></a>
+                    <img src="" style="width: 60px;height: 60px;border-radius: 50%;float: left;"  alt="已上传的图片" id="imgsl">
+                </div>
+            </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2" style="margin-top: 20px;">
+                <input class="btn btn-primary radius" type="submit" id="sub" onclick="submitForm()"  href="javascript:;" value="确定">
+            </div>
+        </div>
+    </div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script> 
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script>
+ var index = parent.layer.getFrameIndex(window.name);
+/*上传图片 缩略图*/
+function previewFile() {
+  var preview = document.querySelector('#imgsl');
+  var file    = document.querySelector('input[type=file]').files[0];
+  var reader  = new FileReader();
+
+  reader.onloadend = function () {
+    preview.src = reader.result;
+  }
+
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    preview.src = "";
+  }
+}
+
+	// $.ajax({
+  //          type: "GET",
+  //          url: "http://www.yuejian.com/admin/getClubLists",
+  //          dataType: "json",
+  //          success: function (response) {
+  //               var output = "";
+  //            if (response.code == 1) {
+  //              response.data.forEach(element => {
+  //                  output += `<option value="${element.id}">${element.clubName}</option>`;
+              
+  //              });
+  //             $('#clubName').html(output);
+  //            }
+  //          }
+  //        });
+
+/*表单验证*/
+function isactTitle(){
+        if ($('#activityTitle').val() == '') {
+          layer.tips('活动主题不能为空！', '#activityTitle');
+          return 0;
+        }else{
+          return 1;
+        }
+    }
+    function isactNums(){
+        if ($('#activityPeopleNums').val() == '') {
+          layer.tips('请填写活动人数！', '#activityPeopleNums');
+          return 0;
+        }else{
+          return 1;
+        }
+    }
+    function isactPlace(){
+        if ($('#activityPlace').val() == '') {
+          layer.tips('请填写活动地点！', '#activityPlace');
+          return 0;
+        }else{
+          return 1;
+        }
+    }
+    function isactSTime(){
+        if ($('#activityStartTime').val() == '') {
+          layer.tips('开始日期不能为空！', '#activityStartTime');
+          return 0;
+        }else{
+          return 1;
+        }
+    }
+    function isactETime(){
+        if ($('#activityEndTime').val() == '') {
+          layer.tips('结束日期不能为空！', '#activityEndTime');
+          return 0;
+        }else{
+          return 1;
+        }
+    }
+    function isactContent(){
+        if ($('#activityContent').val() == '') {
+          layer.tips('活动内容不能为空！', '#activityContent');
+          return 0;
+        }else{
+          return 1;
+        }
+    }
+    function isactPrice(){
+        if ($('#activityPrice').val() == '') {
+          layer.tips('请添加活动价格（人均）！', '#activityPrice');
+          return 0;
+        }else{
+          return 1;
+        }
+    }
+    function isactImage(){
+        if ($('#activityPic').val() == '') {
+          layer.tips('请上传活动图片！', '#activityPic');
+          return 0;
+        }else{
+          return 1;
+        }
+    }
+    function isDate(){
+    //         var startTmp=document.getElementById('activityStartTime').value.replace(/\:/g,"-").split("-");
+    //         var endTmp=document.getElementById('activityEndTime').value.replace(/\:/g,"-").split("-");
+    //         var sd=new Date(startTmp[0],startTmp[1],startTmp[2]);
+    //         var ed=new Date(endTmp[0],endTmp[1],endTmp[2]);
+    //         if(sd.getTime()>ed.getTime()){
+    //             return 0;
+    //         }else{
+    //             return 1;
+    // }
+
+
+if ($('#activityEndTime').val() == '') {
+          layer.tips('结束日期不能为空！', '#activityEndTime');
+          return 0;
+        }else{
+          var starttime = $('#activityStartTime').val();
+var endtime = $('#activityEndTime').val();
+var start = new Date(starttime.replace("-", "/").replace("-", "/"));
+var end = new Date(endtime.replace("-", "/").replace("-", "/"));
+if(end<start){ 
+  layer.tips('开始时间不能大于结束时间！', '#activityEndTime'); 
+  return 0;  
+        }else{
+          return 1;
+        }
+
+}
+}
+/*表单验证*/
+
+
+    function RequestParameter() {
+          var url = window.location.search; //获取url中"?"符后的字串
+          var theRequest = new Object();
+          if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            var strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+              theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
+            }
+          }
+          console.log(theRequest);
+          return theRequest;
+        }
+    //原始数据
+    $.ajax({
+           type: "GET",
+           url: "http://www.yuejian.com/admin/updateActivityDetail",
+           data: { activityId: RequestParameter()["activityId"] },
+           dataType: "json",
+           success: function (response) {
+                var output = "";
+                console.log(response.data);
+                // var i = RequestParameter()["activityId"]-1;
+                $("#activityTitle").val(response.data[0].activityTitle);
+                $("#activityPeopleNums").val(response.data[0].activityPeopleNums);
+                $("#activityPlace").val(response.data[0].activityPlace);
+                $("#activityStartTime").val(response.data[0].activityStartTime);
+                $("#activityEndTime").val(response.data[0].activityEndTime);
+                $("#activityContent").val(response.data[0].activityContent);
+                $("#activityPrice").val(response.data[0].activityPrice);
+                // $("#clubName").val(response.data[i].clubName);
+                pic = response.data[0].activityPic;
+                path = "http://www.yuejian.com/uploads/activity/"+pic;
+                $("#imgsl").attr("src",path);
+                // .src="http://www.yuejian.com/uploads/activity/response.data[i].activityPic";
+                // console.log(pathh);
+            //  if (response.code == 1) {
+            //    response.data.forEach(element => {
+            //        output += `<option value="${element.id}">${element.clubName}</option>`;
+              
+            //    });
+            //   $('#clubName').html(output);
+            //  }
+           }
+         });
+
+$.ajax({
+           type: "GET",
+           url: "http://www.yuejian.com/admin/getAllClubLists",
+           // data: { activityId: RequestParameter()["activityId"] },
+           dataType: "json",
+           success: function (response) {
+                var output = "";
+                console.log(response.data);
+                
+             if (response.code == 1) {
+               response.data.forEach(element => {
+                   output += `<option value="${element.id}">${element.clubName}</option>`;
+              
+               });
+              $('#clubName').html(output);
+             }
+           }
+         });
+
+
+	
+
+    function submitForm() {
+            var formData = new FormData();
+            formData.append('image', $('#activityPic')[0].files[0]);
+            formData.append('clubID', $('#clubName').val());
+            formData.append('activityTitle', $('#activityTitle').val());
+            formData.append('activityContent', $('#activityContent').val());
+            formData.append('activityStartTime', $('#activityStartTime').val());
+            formData.append('activityEndTime', $('#activityEndTime').val());
+            formData.append('activityPeopleNums', $('#activityPeopleNums').val());
+            formData.append('activityPlace', $('#activityPlace').val());
+            formData.append('activityPrice', $('#activityPrice').val());
+            formData.append('activityId', RequestParameter()["activityId"]);
+            
+
+    //修改提交
+    $.ajax({
+                type: "POST",
+                url: "http://www.yuejian.com/admin/updateActivity",
+                cache: false,
+                processData: false,
+                contentType: false, 
+                // data: { activityId: RequestParameter()["activityId"] , formData},
+                data:formData,
+                dataType: "json",
+                success: function (response) {
+
+                    if (response.code == 1) {
+                        layer.msg('活动修改成功！', { icon: 1, time: 1000 });
+                        setTimeout(function () {
+                            parent.layer.close(index); //再执行关闭
+                        }, 1200);
+                         function jumurl(){
+                    　　    window.location.href = 'systemAdmin_activity.html';
+                           // location.reload(true);//刷新页面
+                    　　}
+                    　　    setTimeout(jumurl,2000);
+                    } else if (response.code == 0) {
+                        layer.msg(response.msg, { icon: 1, time: 1000 });
+                    } else {
+                        parent.layer.close(index); //再执行关闭
+                    }
+                }
+            });
+}
+
+	// $.ajax({
+	// 	   type: "POST",
+
+	// 	   url: "http://www.yuejian.com/admin/updateActivity",
+	// 	   dataType: "json",
+	// 	   data: { activityId: RequestParameter()["activityId"] },
+	// 	   success: function (response) {
+	// 	   		var output = "";
+		   		
+	// 		 if (response.code == 1) {
+	// 		   response.data.forEach(element => {
+	// 			  output += `<tr>
+	// 							<th class="text-r" width="80">活动主题：</th>
+	// 							<td>${element.activityTitle}</td>
+	// 						</tr>
+	// 						<tr>
+	// 							<th class="text-r">活动内容：</th>
+	// 							<td>${element.activityContent}</td>
+	// 						</tr>
+	// 						<tr>
+	// 							<th class="text-r">活动人数：</th>
+	// 							<td>${element.activityPeopleNums} 人</td>
+	// 						</tr>
+	// 						<tr>
+	// 							<th class="text-r">活动时间：</th>
+	// 							<td>${element.activityStartTime}—${element.activityEndTime}</td>
+	// 						</tr>
+	// 						<tr>
+	// 							<th class="text-r">活动价格：</th>
+	// 							<td>${element.activityPrice} 元</td>
+	// 						</tr>
+	// 						<tr>
+	// 							<th class="text-r">活动地点：</th>
+	// 							<td>${element.activityPlace}</td>
+	// 						</tr>
+	// 						<tr>
+	// 							<th class="text-r">所属俱乐部：</th>
+	// 							<td>${element.clubName}</td>
+	// 						</tr>`;
+			  
+	// 		   });
+	// 		  $('#coursedetail').html(output);
+	// 		 }
+	// 	   }
+	// 	 });
+</script>
+</body>
+</html>

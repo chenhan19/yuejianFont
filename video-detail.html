@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>活动详情</title>
+</head>
+<body>
+<!-- <div class="cl pd-20" style=" background-color:#5bacb6">
+	<img class="avatar size-XL l" src="static/h-ui/images/ucnter/avatar-default.jpg">
+	<dl style="margin-left:80px; color:#fff">
+		<dt>
+			<span class="f-18">张三</span>
+			<span class="pl-10 f-12">余额：40</span>
+		</dt>
+		<dd class="pt-10 f-12" style="margin-left:0">这家伙很懒，什么也没有留下</dd>
+	</dl>
+</div> -->
+<div class="pd-20">
+	<table class="table">
+		<tbody id="videodetail">
+			<!-- <tr>
+				<th class="text-r" width="80">宣传图片：</th>
+				
+			</tr>
+			<tr>
+				<th class="text-r">名称：</th>
+				<td>13000000000</td>
+			</tr>
+			<tr>
+				<th class="text-r">内容：</th>
+				<td>admin@mail.com</td>
+			</tr>
+			<tr>
+				<th class="text-r">地址：</th>
+				<td>北京市 海淀区</td>
+			</tr>
+			<tr>
+				<th class="text-r">人数：</th>
+				<td>2014.12.20</td>
+			</tr>
+			<tr>
+				<th class="text-r">开始时间：</th>
+				<td>2014.12.20</td>
+			</tr>
+			<tr>
+				<th class="text-r">结束时间：</th>
+				<td>330</td>
+			</tr> -->
+		</tbody>
+	</table>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script> 
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script>
+	// $.ajax({
+	// 	   type: "GET",
+
+	// 	   url: "http://www.yuejian.com/admin/getCourseDetail",
+	// 	   dataType: "json",
+	// 	   reponse:{'id':id},
+	// 	   success: function (response) {
+	// 	   		var output = "";
+	// 	   		for(int i = 0; i < reponse.length; i++){
+	// 	   			var s = response[i];
+	// 	   		}
+	// 		 if (response.code == 1) {
+	// 		   response.data.forEach(element => {
+	// 			  output += `<tr>
+	// 							<th class="text-r" width="80">课程名称：</th>
+	// 							<td>${element.classTheme}</td>
+	// 						</tr>
+	// 						<tr>
+	// 							<th class="text-r">课程人数：</th>
+	// 							<td>${element.classNumber}</td>
+	// 						</tr>
+	// 						<tr>
+	// 							<th class="text-r">课程内容：</th>
+	// 							<td>${element.classContent}</td>
+	// 						</tr>
+	// 						<tr>
+	// 							<th class="text-r">上课时间：</th>
+	// 							<td>${element.classStarttime}~${element.classEndtime}</td>
+	// 						</tr>
+	// 						<tr>
+	// 							<th class="text-r">课程价格：</th>
+	// 							<td>${element.classPrice}</td>
+	// 						</tr>
+	// 						<tr>
+	// 							<th class="text-r">上课地点：</th>
+	// 							<td>${element.clubPlace}</td>
+	// 						</tr>
+	// 						<tr>
+	// 							<th class="text-r">所属俱乐部：</th>
+	// 							<td>${element.clubName}</td>
+	// 						</tr>`;
+			  
+	// 		   });
+	// 		  $('#coursedetail').html(output);
+	// 		 }
+	// 	   }
+	// 	 });
+	function RequestParameter() {
+      var url = window.location.search; //获取url中"?"符后的字串
+      var theRequest = new Object();
+      if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        var strs = str.split("&");
+        for (var i = 0; i < strs.length; i++) {
+          theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
+        }
+      }
+      return theRequest;
+    }
+    $.ajax({
+		   type: "GET",
+		   url: "http://www.yuejian.com/admin/getVideoDetail",
+		   dataType: "json",
+		   data: { videoId: RequestParameter()["videoId"] },
+		   success: function (response) {
+		   		var output = "";
+		   		
+			 if (response.code == 1) {
+			   response.data.forEach(element => {
+				  output += `<tr>
+								<th class="text-r" width="80">宣传图片：</th>
+								<td><video src="http://www.yuejian.com/uploads/video/${element.videoPath}" type="video/mp4" " style="width:70px;height:60px;"></td>
+							</tr>
+							<tr>
+								<th class="text-r">主题：</th>
+								<td>${element.videoName}</td>
+							</tr>
+							<tr>
+								<th class="text-r">所属俱乐部：</th>
+								<td>${element.clubName}</td>
+							</tr>
+							<tr>
+								<th class="text-r">视频类型：</th>
+								<td>${element.videoType}</td>
+							</tr>
+							<tr>
+								<th class="text-r">所属训练：</th>
+								<td>${element.drillTitle}</td>
+							</tr>
+							<tr>
+								<th class="text-r">更新时间</th>
+								<td>${element.updateTime}</td>
+							</tr>
+							<tr>
+								<th class="text-r">视频简介</th>
+								<td>${element.videIntroduction}</td>
+							</tr>`;
+			  
+			   });
+			  $('#videodetail').html(output);
+			 }
+		   }
+		 });
+
+</script>
+</body>
+</html>

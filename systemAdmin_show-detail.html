@@ -1,0 +1,213 @@
+<!DOCTYPE HTML>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>晒图详情</title>
+</head>
+<body>
+<!-- <div class="cl pd-20" style=" background-color:#5bacb6">
+	<img class="avatar size-XL l" src="static/h-ui/images/ucnter/avatar-default.jpg">
+	<dl style="margin-left:80px; color:#fff">
+		<dt>
+			<span class="f-18">张三</span>
+			<span class="pl-10 f-12">余额：40</span>
+		</dt>
+		<dd class="pt-10 f-12" style="margin-left:0">这家伙很懒，什么也没有留下</dd>
+	</dl>
+</div> -->
+<div class="page-container">
+      <div class="panel panel-default" style="margin-top: 20px">
+          <div class="panel-header"><span class="userName"></span>的晒图详情</div>
+          <div class="panel-body" id="courseDetail">
+			<table class="table">
+				<!-- <colgroup>
+                <col width="100">
+                <col width="100">
+                <col>
+              </colgroup> -->
+				<tbody id="showPicdetail">
+					<!-- <tr>
+						<th class="text-r" width="80">课程名称：</th>
+						<td>男</td>
+					</tr>
+					<tr>
+						<th class="text-r">手机：</th>
+						<td>13000000000</td>
+					</tr>
+					<tr>
+						<th class="text-r">邮箱：</th>
+						<td>admin@mail.com</td>
+					</tr>
+					<tr>
+						<th class="text-r">地址：</th>
+						<td>北京市 海淀区</td>
+					</tr>
+					<tr>
+						<th class="text-r">注册时间：</th>
+						<td>2014.12.20</td>
+					</tr>
+					<tr>
+						<th class="text-r">积分：</th>
+						<td>330</td>
+					</tr> -->
+				</tbody>
+			</table>
+			<div>
+				<p style="font-size:18px;margin-left: 130px;color: #000;font-weight: bold;">评论：</p>
+				<table class=" table-border table-bordered table-bg table-hover table-sort" style="width:1000px;margin:5px auto;text-align: center;border-color: #ccc;">
+					<tbody id="iscomment">
+						<!-- <tr>
+							<td width="100"><a href="javascript:;" onclick="user_info('${element.userName}','user-show.html?commentId=${element.id}','10001','360','400')"><i  class="avatar size-L radius"><img  alt="" src="http://www.yuejian.com/uploads/userInfo/${element.userPhoto}"></i></a><p>${element.userName}</p></td>
+							<td>真不错</td>
+							<td width="200">2019-5-8</td>
+						</tr> -->
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script> 
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script>
+	function RequestParameter() {
+      var url = window.location.search; //获取url中"?"符后的字串
+      var theRequest = new Object();
+      if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        var strs = str.split("&");
+        for (var i = 0; i < strs.length; i++) {
+          theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
+        }
+      }
+      console.log(theRequest);
+      return theRequest;
+    }
+
+
+
+	$.ajax({
+		   type: "GET",
+
+		   url: "http://www.yuejian.com/admin/getShowPicDetail",
+		   dataType: "json",
+		   data: { showpictureId: RequestParameter()["showpictureId"] },
+		   success: function (response) {
+		   		var output = "";
+		   		$(".userName").html(response.data[0].userName);
+			 if (response.code == 1) {
+			   response.data.forEach(element => {
+				  output += `<tr>
+								<th class="text-r" style="font-size:18px;" width="180">晒图主题：</th>
+								<td style="font-size:16px;color:rgba(0,0,0,0.7);">${element.showPicTitle}</td>
+							</tr>
+							<tr>
+								<th class="text-r" style="font-size:18px;">晒图内容：</th>
+								<td style="font-size:16px;color:rgba(0,0,0,0.7);">${element.showPicContent}</td>
+							</tr>
+							
+							<tr>
+								<th class="text-r" style="font-size:18px;">作者：</th>
+								<td style="font-size:16px;color:rgba(0,0,0,0.7);"><a href="javascript:;" onclick="user_info('${element.userName}','user-show.html?showPicId=${element.id}','10001','360','400')">${element.userName}</a></td>
+							</tr>
+							<tr>
+								<th class="text-r" style="font-size:18px;">发表的图片：</th>
+								<td><img width="80" class="picture-thumb" style="float: left;" src="http://www.yuejian.com/uploads/userInfo/${element.showPic}"></td>
+							</tr>
+							<tr>
+								<th class="text-r" style="font-size:18px;">发表时间：</th>
+								<td style="font-size:16px;color:rgba(0,0,0,0.7);">${element.showTime}</td>
+							</tr>`;
+			  
+			   });
+			  $('#showPicdetail').html(output);
+			 }
+		   }
+		 });
+
+
+		$.ajax({
+		   type: "GET",
+		   url: "http://www.yuejian.com/admin/getShowPicComments",
+		   dataType: "json",
+		   data: { showpictureId: RequestParameter()["showpictureId"] },
+		   success: function (response) {
+		   		var output = "";
+			 if (response.code == 1) {
+			   response.data.forEach(element => {
+				  output += `<tr>
+								<td width="100"><a href="javascript:;" onclick="user_info('${element.userName}','user-show.html?userID=${element.userID}','10001','360','400')"><i style="margin-top:20px;" class="avatar size-L radius"><img alt="" src="http://www.yuejian.com/uploads/userInfo/${element.userPhoto}"></i><p>${element.userName}</p></a></td>
+								<td>${element.commentContent}</td>
+								<td width="200">${element.commentTime}</td>
+								<td width="100" class="td-manage"> <a style="text-decoration:none;margin-left:5px;" class="ml-5" onClick="comment_del(this,${element.id})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+							</tr>`;
+				  
+			   });
+			  $('#iscomment').html(output);
+			 }else{
+			 	output += `<tr height="150">
+							  <td><span style="color:#ccc;font-size:18px;">暂无评论</span></td>
+			 			   </tr>`;
+ 			   $('#iscomment').html(output);
+			 }
+		   }
+		 });
+
+/*评论-删除*/
+		function comment_del(obj, id) {
+			layer.confirm('确认要删除吗？', function (index) {
+				$.ajax({
+					type: 'PUT',
+					url: 'http://www.yuejian.com/admin/deleteComment',
+					data: { commentId: id },
+					dataType: 'json',
+					success: function (response) {
+						if (response.code == 1) {
+							$(obj).parents("tr").remove();
+							layer.msg("删除成功", { icon: 1, time: 1000 });
+							location.reload(true);//刷新页面
+						} else if (response.code == 0) {
+							$(obj).parents("tr").remove();
+							layer.msg("删除失败", { icon: 1, time: 1000 });
+							location.reload(true);//刷新页面
+						}
+						console.log(response)
+
+					},
+					error: function (data) {
+						console.log(data.msg);
+					},
+				});
+			});
+		}
+
+	function user_info(title,url,id,w,h){
+		layer_show(title,url,w,h);
+	}
+</script>
+</body>
+</html>

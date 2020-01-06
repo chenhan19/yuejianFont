@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="utf-8">
+  <meta name="renderer" content="webkit|ie-comp|ie-stand">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+    content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+  <link type="text/css" rel="stylesheet" href="./static/h-ui/css/H-ui.css" />
+  <link type="text/css" rel="stylesheet" href="./static/h-ui.admin/css/H-ui.admin.css" />
+  <link type="text/css" rel="stylesheet" href="./lib/layui/css/layui.css" />
+
+  <title>管理员个人信息</title>
+</head>
+
+<body>  
+    <div class="cl pd-20" style=" background-color:#5bacb6" id="admintitle">
+    </div>
+    <div class="pd-20">
+        <table class="table">
+            <tbody id="adminContent">  
+            </tbody>
+        </table>
+    </div>
+    <!--请在下方写此页面业务相关的脚本-->
+  <script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+  <script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+  <script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+  <script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
+  <script>
+    function RequestParameter() {
+      var url = window.location.search; //获取url中"?"符后的字串
+      var theRequest = new Object();
+      if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        var strs = str.split("&");
+        for (var i = 0; i < strs.length; i++) {
+          theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
+        }
+      }
+      return theRequest;
+    }
+    $.ajax({
+      type: "GET",
+      url: "http://www.yuejian.com/admin/getPersonInfo",
+      data: { adminName:sessionStorage.getItem('adminName')},
+      dataType: "json",
+      success: function (response) {
+          console.log(response.data[0]);
+          var admintitleOutput =  "";
+          var adminContentOutput = "";
+          admintitleOutput =`
+          <img class="avatar size-XL l" src="http://www.yuejian.com/uploads/admin/${response.data[0].photo}">
+          <dl style="margin-left:80px; color:#fff">
+            <dt>
+                <span class="f-18">${response.data[0].adminName}</span>
+            </dt>
+          </dl>
+          `;
+          adminContentOutput = `
+                <tr>
+                    <th class="text-r" width="80">昵称：</th>
+                    <td>${response.data[0].nickname}</td>
+                </tr>
+                <tr>
+                    <th class="text-r">性别：</th>
+                    <td>${response.data[0].adminSex==1?'男':'女'}</td>
+                </tr>
+                <tr>
+                    <th class="text-r">类别：</th>
+                    <td>${response.data[0].is_club_admin==1?'普通管理员':'超级管理员'}</td>
+                </tr>
+                <tr>
+                    <th class="text-r">电话：</th>
+                    <td>${response.data[0].phoneNum}</td>
+                </tr>
+          `;
+         $('#adminContent').html(adminContentOutput)
+         $('#admintitle').html(admintitleOutput);
+      }
+    });
+  </script>
+</body>
+
+</html>

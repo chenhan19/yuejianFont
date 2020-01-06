@@ -1,0 +1,345 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" href="lib/layui/css/layui.css">
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+
+<title>意见反馈</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 课程管理 <span class="c-gray en">&gt;</span> 课程列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+	
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a class="btn btn-primary radius" onclick="course_add('添加活动','clubAdmin_addcourse.html')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加课程</a></span> <span class="r">共有数据：<strong><span class="nums"></span></strong> 条</span> </div>
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="25"><input type="checkbox" name="" value=""></th>
+					<th width="70">序号</th>
+					<th width="80">课程名称</th>					
+					<th width="120">已报名人数</th>
+					<!-- <th width="200">所属俱乐部</th> -->
+					<th width="150">课程报名开始时间</th>
+					<th width="150">课程报名结束时间</th>
+					<th>课程详情</th>
+					<!-- <th>状态</th> -->
+					<th width="150">操作</th>
+				</tr>
+			</thead>
+			<tbody id="CourseList">
+				<!-- <tr class="text-c">
+					<td><input name="" type="checkbox" value=""></td>
+					<td>1</td>
+					<td>街头篮球</td>
+					<td>20人（还可报10人）</td>
+					<td>东软体育俱乐部</td>
+					<td>2019-9-1</td>
+					<td class="text-l">东鹏陶瓷被评为“中国名牌”、“国家免检产品”、“中国驰名商标”、http://www.dongpeng.net/</td>
+					<td class="f-14 product-brand-manage"> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				</tr> -->
+			</tbody>
+		</table>
+	</div>
+</div>
+<div id="page" style="float: right; margin-right:20px;"></div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>  
+<script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer /作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
+<script src="lib/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript">
+// $.ajax({
+			// type: "GET",
+			// url: "http://www.yuejian.com/admin/getClubCourseList",
+			// data: { clubId: sessionStorage.getItem('clubID') },
+			// dataType: "json",
+			// success: function (response) {
+			// 	//数据数量
+			// 	$('.nums').html(response.data.length);
+			// 	if (response.code == 1) {
+			// 		// $('#total').html(response.data[0].recordCount);
+			// 		layui.use(['laypage', 'layer'], function () {
+			// 			var laypage = layui.laypage
+			// 				, layer = layui.layer;
+			// 			//调用分页
+			// 			laypage.render({
+			// 				elem: 'page'
+			// 				, count: response.data[0].recordCount
+			// 				, limit: 5
+			// 				, curr: location.hash.replace('#!fenye=', '') //获取起始页
+			// 				, hash: 'fenye' //自定义hash值
+			// 				, jump: function (obj) {
+				$.ajax({
+		   type: "GET",
+		   url: "http://www.yuejian.com/admin/getClubCourseList",
+		   dataType: "json",
+		   data: { clubId: sessionStorage.getItem('clubID') },
+		   success: function (response) {
+		   	console.log(response)
+		   		// var output = "";
+			 if (response.code == 1) {
+			 	$('.nums').html(response.data[0].recordCount);
+			 	// $('#total').html(response.data[0].recordCount);
+					layui.use(['laypage', 'layer'], function () {
+						var laypage = layui.laypage
+							, layer = layui.layer;
+						//调用分页
+						laypage.render({
+							elem: 'page'
+							, count: response.data[0].recordCount
+							, limit: 4
+							, curr: location.hash.replace('#!fenye=', '') //获取起始页
+							, hash: 'fenye' //自定义hash值
+							, jump: function (obj) {
+			// 					//渲染
+								$.ajax({
+									type: "GET",
+									url: "http://www.yuejian.com/admin/getClubCourseList",
+									data: { clubId: sessionStorage.getItem('clubID'),pageNum: obj.curr },
+									dataType: "json",
+									success: function (res) {
+										console.log(res);
+										var output = "";
+										var page = "";
+										res.data.forEach(element => {
+											output += `<tr class="text-c">
+											   <td><input type="checkbox" value="" name=""></td>
+											   <td>${element.id}</td>
+											   <td>${element.classTheme}</td>
+											   <td>${element.classNumber}</td>
+											   <td>${element.classStarttime}</td>
+											   <td>${element.classEndtime}</td>
+											   <td>${element.classContent}</td>
+												<td class="f-14 product-brand-manage"> <a style="font-size:12px;" class="ml-5" onclick="coursedetail('课程详情','systemAdmin_course-detail.html?courseId=${element.id}','10001')" href="javascript:;" title="查看详情"><i class="Hui-iconfont">&#xe720;</i></a>
+												<a style="text-decoration:none;margin-left:5px;" class="ml-5" onClick="course_del(this,${element.id})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
+												<a style="text-decoration:none;margin-left:5px;margin-right:5px;" class="ml-5" onClick="course_edit('课程编辑','clubAdmin_course-edit.html?courseId=${element.id}','10001')" href="javascript:;" title="修改编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
+												</td>
+										   </tr>`;
+										});
+										$('#CourseList').html(output);
+
+									}
+								});
+
+							}
+
+						});
+
+					});
+				}
+			}
+		});
+/*课程-删除*/
+function course_del(obj, id) {
+	layer.confirm('确认要删除吗？', function (index) {
+		$.ajax({
+			type: 'PUT',
+			url: 'http://www.yuejian.com/admin/deleteClubCourse',
+			data: { courseId: id },
+			dataType: 'json',
+			success: function (response) {
+				if (response.code == 1) {
+					$(obj).parents("tr").remove();
+					layer.msg("删除成功", { icon: 1, time: 1000 });
+				} else if (response.code == 0) {
+					$(obj).parents("tr").remove();
+					layer.msg("删除失败", { icon: 1, time: 1000 });
+				}
+				console.log(response)
+
+			},
+			error: function (data) {
+				console.log(data.msg);
+			},
+		});
+	});
+}
+/*发布课程*/
+function issueCourse(obj, id) {
+			layer.confirm('确认要发布吗？', function (index) {
+				$.ajax({
+					type: 'PUT',
+					url: 'http://www.yuejian.com/admin/issueClubCourse',
+					data: { courseId: id },
+					dataType: 'json',
+					success: function (response) {
+						if (response.code == 1) {
+							
+							layer.msg("发布成功", { icon: 1, time: 1000 });
+							setTimeout(function () {
+	                            parent.layer.close(index); //再执行关闭
+	                        }, 2000);
+							location.reload(true); //刷新页面
+						} else if (response.code == 0) {
+							
+							layer.msg("发布失败", { icon: 1, time: 1000 });
+							setTimeout(function () {
+	                            parent.layer.close(index); //再执行关闭
+	                        }, 2000);
+							location.reload(true);//刷新页面
+						} else if (response.code == 2) {
+
+							layer.msg("该课程已发布！", { icon: 1, time: 1000 });
+							setTimeout(function () {
+	                            parent.layer.close(index); //再执行关闭
+	                        }, 2000);
+							location.reload(true);//刷新页面
+						}
+						console.log(response)
+
+					},
+					error: function (data) {
+						console.log(data.msg);
+					},
+				});
+			});
+		}
+
+		/*发布课程*/
+function noissueCourse(obj, id) {
+			layer.confirm('确认要取消发布吗？', function (index) {
+				$.ajax({
+					type: 'PUT',
+					url: 'http://www.yuejian.com/admin/noissueClubCourse',
+					data: { courseId: id },
+					dataType: 'json',
+					success: function (response) {
+						if (response.code == 1) {
+							
+							layer.msg("取消发布成功", { icon: 1, time: 1000 });
+							location.reload(true);
+						} else if (response.code == 0) {
+							
+							layer.msg("取消发布失败", { icon: 1, time: 1000 });
+							location.reload(true);
+						}
+						console.log(response)
+
+					},
+					error: function (data) {
+						console.log(data.msg);
+					},
+				});
+			});
+		}
+/*课程 编辑*/
+function course_edit(title, url, id) {
+			var index = layer.open({
+				type: 2,
+				title: title,
+				content: url
+			});
+			layer.full(index);
+		}
+
+/*课程-详情*/
+function coursedetail(title,url,id){
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: url
+	});
+	layer.full(index);
+}
+
+/*课程-添加*/
+function course_add(title,url){
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: url
+	});
+	layer.full(index);
+}
+
+
+
+
+
+function picture_add(title,url){
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: url
+	});
+	layer.full(index);
+}
+/*用户-添加*/
+function member_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+/*用户-查看*/
+function member_show(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+/*用户-停用*/
+function member_stop(obj,id){
+	layer.confirm('确认要停用吗？',function(index){
+		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
+		$(obj).remove();
+		layer.msg('已停用!',{icon: 5,time:1000});
+	});
+}
+
+/*用户-启用*/
+function member_start(obj,id){
+	layer.confirm('确认要启用吗？',function(index){
+		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,id)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
+		$(obj).remove();
+		layer.msg('已启用!',{icon: 6,time:1000});
+	});
+}
+/*用户-编辑*/
+function member_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+/*密码-修改*/
+function change_password(title,url,id,w,h){
+	layer_show(title,url,w,h);	
+}
+/*用户-删除*/
+function member_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.ajax({
+			type: 'POST',
+			url: '',
+			dataType: 'json',
+			success: function(data){
+				$(obj).parents("tr").remove();
+				layer.msg('已删除!',{icon:1,time:1000});
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});		
+	});
+}
+</script>
+</body>
+</html>
